@@ -89,7 +89,22 @@ def parse_opt():
         '--dec_head',
         type=int,
         default=4)
-        
+    parser.add_argument(
+        '--DSE',
+        default=False,
+        action='store_true',
+        help='Enable Dual-Scale Temporal Encoder. When omitted, MyNet runs as the baseline without DSE.')
+    parser.add_argument(
+        '--diou',
+        default=False,
+        action='store_true',
+        help='Add DIoU loss on the regressed (start, end) intervals as instance-level supervision.')
+    parser.add_argument(
+        '--diou_weight',
+        type=float,
+        default=1.0,
+        help='Coefficient for the DIoU loss when --diou is enabled.')
+
     # Training settings
     parser.add_argument(
         '--batch_size',
@@ -186,6 +201,10 @@ def parse_opt():
         '--exp',
         type=str,
         default="")
+    parser.add_argument(
+        '--split',
+        type=str,
+        default="1")
     
     args = parser.parse_args()
 
